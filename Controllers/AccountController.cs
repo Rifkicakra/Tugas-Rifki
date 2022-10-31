@@ -17,6 +17,10 @@ namespace ProjectApp.Controllers
             this.myContext = myContext;
         }
        
+        public IActionResult Profile(LoginResponse loginResponse)
+        {
+            return View(loginResponse);
+        }
 
         public IActionResult Login()
         {
@@ -35,11 +39,13 @@ namespace ProjectApp.Controllers
             {
                 LoginResponse loginResponse = new LoginResponse()
                 {
+                    Id = data.Employee.Id,
                     FullName = data.Employee.FullName,
                     Email = data.Employee.Email,
-                    Role = data.Role.Name
+                    Role = data.Role.Name,
+                    BirthDate = data.Employee.BirthDate
                 };
-                return RedirectToAction("Index", "Home", loginResponse);
+                return RedirectToAction("Profile", "Account", loginResponse);
             }
 
             return View();
@@ -86,21 +92,20 @@ namespace ProjectApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(string email, string password, string baru)
+        public IActionResult ChangePassword(string email, string password, string passbaru)
         {
 
             var data = myContext.Users
                 .Include(x => x.Employee)
-                .Include(x => x.Role)
-                .AsNoTracking()
+                //.AsNoTracking()
                 .SingleOrDefault(x => x.Employee.Email.Equals(email) && x.Password.Equals(password));
-                myContext.SaveChanges();
+
             if (data != null)
             {
                 User user = new User()
                 {
                     Id = data.Id,
-                    Password = baru,
+                    Password = passbaru,
                     RoleId = data.RoleId,
                 };
                 myContext.Entry(user).State = EntityState.Modified;
@@ -117,23 +122,16 @@ namespace ProjectApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult ForgotPassword(string email, string baru)
+        public IActionResult ForgotPassword(string email,string passbaru)
         {
             var data = myContext.Users
                 .Include(x => x.Employee)
-                .Include(x => x.Role)
-                .AsNoTracking()
                 .SingleOrDefault(x => x.Employee.Email.Equals(email));
-            myContext.SaveChanges();
+
             if (data != null)
             {
-                User user = new User()
-                {
-                    Id = data.Id,
-                    Password = baru,
-                    RoleId = data.RoleId,
-                };
-                myContext.Entry(user).State = EntityState.Modified;
+                data.Password = passbaru;
+                myContext.Entry(data).State = EntityState.Modified;
                 var resultUser = myContext.SaveChanges();
                 if (resultUser > 0)
                     return RedirectToAction("Login", "Account");

@@ -12,7 +12,7 @@ using ProjectApp.Context;
 namespace ProjectApp.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20221028063323_initial")]
+    [Migration("20221031065204_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

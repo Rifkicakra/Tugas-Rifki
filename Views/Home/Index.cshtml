@@ -6,8 +6,14 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-   <p> Name : @Html.DisplayFor(model => model.FullName)</p>
+   @*<p> Name : @Html.DisplayFor(model => model.FullName)</p>
    <p> Email : @Html.DisplayFor(model => model.Email)</p>
    <p> Role : @Html.DisplayFor(model => model.Role)</p>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+    <a href="/Account/Login" class="btn btn-primary btn-lg">Login &raquo;</a> <p></p>
+    <a href="/Account/Register" class="btn btn-primary btn-lg">Register &raquo;</a> <p></p>
+    <a  asp-controller="Account" asp-action="ForgotPassword">Forgot Password ?</a>
+    
+
 </div>
+

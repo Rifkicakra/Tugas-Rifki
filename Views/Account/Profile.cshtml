@@ -1,0 +1,49 @@
+﻿@model ProjectApp.ViewModel.LoginResponse
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+   <p> Name : @Html.DisplayFor(model => model.FullName)</p>
+   <p> Email : @Html.DisplayFor(model => model.Email)</p>
+   <p> Role : @Html.DisplayFor(model => model.Role)</p>
+</div>*@
+<div>
+    <h1>Welcome</h1>
+    <p></p>
+    @*<hr />*@
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nama
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt class="col-sm-2">
+            Email           
+            </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt class="col-sm-2">
+            Role
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+        <dt class="col-sm-2">
+            Date of Birth
+        </dt>
+         <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="ChangePassword" asp-route-id="@Model.Id">Change Password</a> |
+    <a asp-controller="Home" asp-action="Index">Log Out</a>
+</div>
